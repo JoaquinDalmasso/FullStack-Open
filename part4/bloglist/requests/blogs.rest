@@ -11,3 +11,39 @@ content-type: application/json
     "url": ".com",
     "likes": 3
 }
+
+###
+
+POST http://localhost:3003/api/users
+content-type: application/json
+
+{
+      "username": "Joaquin",
+      "name": "Joaco Dal",
+      "password": "joaco"
+    }
+
+###
+
+POST http://localhost:3003/api/login
+content-type: application/json
+
+{
+      "username": "Joaquin",
+      "password": "joaco"
+    }
+
+###
+POST http://localhost:3003/api/blogs
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvYXF1aW4iLCJpZCI6IjY1ZDU0ZGVkYjg4ZTg3NjJhZDU0NDI5NyIsImlhdCI6MTcwODQ3ODE2N30.NMsUkINCi5zyhMmHu8mEbEqcb2z654YaF3jwZdtjBtE
+
+{
+    "title": "Titulo con aplicacion de usuarios1",
+    "author": "Joaquin",
+    "url": ".com",
+    "likes": 10,
+    "user": "65d53d630e1b745828b43709"
+    }
+###
+GET http://localhost:3003/api/users
