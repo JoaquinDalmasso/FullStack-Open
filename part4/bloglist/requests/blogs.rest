@@ -36,14 +36,37 @@ content-type: application/json
 ###
 POST http://localhost:3003/api/blogs
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvYXF1aW4iLCJpZCI6IjY1ZDU0ZGVkYjg4ZTg3NjJhZDU0NDI5NyIsImlhdCI6MTcwODQ3ODE2N30.NMsUkINCi5zyhMmHu8mEbEqcb2z654YaF3jwZdtjBtE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvYXF1aW4iLCJpZCI6IjY1ZDU0ZGVkYjg4ZTg3NjJhZDU0NDI5NyIsImlhdCI6MTcwOTUxMTM2Nn0.OzofdjtW_98aibADmbv3d2eBKYy2WRgwk7i0Glm9MXQ
 
 {
-    "title": "Titulo con aplicacion de usuarios1",
+    "title": "Prueba desde server",
     "author": "Joaquin",
     "url": ".com",
     "likes": 10,
-    "user": "65d53d630e1b745828b43709"
+    "user": "65d54dedb88e8762ad544297"
     }
 ###
+
+DELETE  http://localhost:3003/api/blogs/65e36f03758741cc80c2f0df
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvYXF1aW4iLCJpZCI6IjY1ZDU0ZGVkYjg4ZTg3NjJhZDU0NDI5NyIsImlhdCI6MTcwOTQwNDA5OH0.Bmu9VWiBEGObHrFpkCd5djCjLUZC4-pb3po5ZMEP-ik
+
+###
 GET http://localhost:3003/api/users
+
+###
+GET http://localhost:3003/api/blogs/65e36fe7d8da241e6510c9ae
+
+
+###
+PUT http://localhost:3003/api/blogs/65e36fe7d8da241e6510c9ae
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvYXF1aW4iLCJpZCI6IjY1ZDU0ZGVkYjg4ZTg3NjJhZDU0NDI5NyIsImlhdCI6MTcwOTQwNDIxNn0.gikGS3AbiXbkJRdrwly0KSl4d2BRsoMoadgro1lxB2Y
+
+{
+    "title": "Funciona???",
+    "author": "Joaquin",
+    "url": ".com",
+    "likes": 11,
+    "user": "65d54dedb88e8762ad544297"
+    }

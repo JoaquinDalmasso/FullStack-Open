@@ -3,6 +3,14 @@ const Blog = require('../models/blog')
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
+const getTokenFrom = request => {
+  const authorization = request.get('authorization')
+  if (authorization && authorization.startsWith('Bearer ')) {
+    return authorization.replace('Bearer ', '')
+  }
+  return null
+}
+
 blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
   response.json(blogs.map(blog => blog.toJSON()))
@@ -21,16 +29,53 @@ blogsRouter.get('/:id', async (request, response, next) => {
      }
 })
 
-blogsRouter.post('/', async (request, response, next) => {
+blogsRouter.put('/:id', async (request, response, next) => {
   const body = request.body
-
-  const decodedToken = jwt.verify(token, process.env.SECRET)
-  const user = await User.findById(decodedToken.id)
+  
+  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
 
   if (!decodedToken.id) {
     return response.status(401).json({ error: 'token invalid' })
   }
 
+  const user = await User.findById(decodedToken.id)
+
+  if (!body.likes) {
+      body.likes = 0
+  }
+  const blogToUpdate = await Blog.findById(request.params.id)
+
+  if ( blogToUpdate.user._id.toString() == user._id.toString() ) {
+      blog = {
+        title: body.title,
+        author: body.author,
+        url: body.url,
+        likes: body.likes
+    }
+
+  try{    
+    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
+    response.json(updatedBlog)
+  } catch (exception) {
+    next(exception)
+  }
+}else{
+  return response.status(401).json({ error: `Unauthorized` })
+}
+})
+
+blogsRouter.post('/', async (request, response, next) => {
+  const body = request.body
+
+  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+  
+
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+
+  const user = await User.findById(decodedToken.id)
+  
   if (!body.likes) {
     body.likes = 0
 }
@@ -68,30 +113,6 @@ blogsRouter.delete('/:id', async (request, response) => {
 }
 })
 
-blogsRouter.put('/:id', async (request, response, next) => {
-  const body = request.body
-  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
-  const user = await User.findById(decodedToken.id)
 
-  if (!body.likes) {
-      body.likes = 0
-  }
-  const blogToUpdate = await Blog.findById(request.params.id)
-
-  if ( blogToUpdate.user._id.toString() === user._id.toString() ) {
-    const blog = {
-        title: body.title,
-        author: body.author,
-        url: body.url,
-        likes: body.likes
-    }
-  }
-  try{    
-    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
-    response.json(updatedBlog)
-  } catch (exception) {
-    next(exception)
-  }
-})
 
   module.exports = blogsRouter

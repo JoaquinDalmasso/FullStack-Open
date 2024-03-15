@@ -1,0 +1,23 @@
+POST http://localhost:3003/api/login
+content-type: application/json
+
+{
+      "username": "Joaquin",
+      "password": "joaco"
+    }
+
+###
+GET http://localhost:3003/api/blogs/65e36fe7d8da241e6510c9ae
+
+###
+PUT http://localhost:3003/api/blogs/65e36fe7d8da241e6510c9ae
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvYXF1aW4iLCJpZCI6IjY1ZDU0ZGVkYjg4ZTg3NjJhZDU0NDI5NyIsImlhdCI6MTcwOTQyMjM4NH0.2K1tBOlkYWvu3Cr-fQh5qxiJjpOJSGGDaBcNy_KK_kA
+
+{
+    "title": "Funciona???",
+    "author": "Joaquin",
+    "url": ".com",
+    "likes": 13,
+    "user": "65d54dedb88e8762ad544297"
+    }
