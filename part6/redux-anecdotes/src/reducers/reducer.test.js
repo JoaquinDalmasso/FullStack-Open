@@ -15,8 +15,8 @@ const initialState = [
 
   test('vote incremented', () => {
     const action = {
-      type: 'VOTE_ANECDOTE',
-      payload: {id: '71296'}
+      type: 'anecdotes/vote',
+      payload: '71296'
     }
     const state = initialState
     console.log(state)
