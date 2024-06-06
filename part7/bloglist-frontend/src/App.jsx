@@ -41,7 +41,7 @@ const App = () => {
   return (
     <div>
       <Menu />
-      <h2>blogs</h2>
+      <h1 className="text-4xl font-bold text-left text-black">blogs app</h1>
         <Notification />
         <Routes>
           <Route path="/" element={<Inicio />} />

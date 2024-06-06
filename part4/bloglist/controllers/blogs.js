@@ -43,6 +43,9 @@ blogsRouter.put('/:id', async (request, response, next) => {
   if (!body.likes) {
       body.likes = 0
   }
+  if (!body.comments) {
+    body.comments = []
+}
   const blogToUpdate = await Blog.findById(request.params.id)
 
   if ( blogToUpdate.user._id.toString() == user._id.toString() ) {
@@ -50,7 +53,8 @@ blogsRouter.put('/:id', async (request, response, next) => {
         title: body.title,
         author: body.author,
         url: body.url,
-        likes: body.likes
+        likes: body.likes,
+        comments:body.comments
     }
 
   try{    
@@ -79,11 +83,15 @@ blogsRouter.post('/', async (request, response, next) => {
   if (!body.likes) {
     body.likes = 0
 }
+if (!body.comments) {
+  body.comments = []
+}
 const blog = new Blog({
   title: body.title,
   author: body.author,
   url: body.url,
   likes: body.likes,
+  comments:body.comments,
   user: user.id
 })
 try {
@@ -113,6 +121,4 @@ blogsRouter.delete('/:id', async (request, response) => {
 }
 })
 
-
-
-  module.exports = blogsRouter
+module.exports = blogsRouter
